@@ -1,8 +1,8 @@
 -------------------------------------------------------------------
-//-------Lab 02 – Query 1: Data Exploration Notes------//
+##//-------Lab 02 – Query 1: Data Exploration Notes------//
 -------------------------------------------------------------------
 
-1. customers Table
+** customers Table **
 
 The customers table contains basic customer information including:
 
@@ -18,7 +18,7 @@ The customers table contains basic customer information including:
 
 This table stores who the customers are and when they registered. Each customer has a unique ID, which is later used to link them to their orders.
 ---------------------------------------------------------------------
-2. products Table
+** products Table **
 
 The products table contains product details:
 
@@ -34,7 +34,7 @@ The products table contains product details:
 
 This table stores all items available for sale, including their category (Electronics, Books, Furniture), their price, and how many are currently in stock.
 ---------------------------------------------------------------------
-3. orders Table
+** orders Table **
 
 The orders table contains order-level information:
 
@@ -56,7 +56,7 @@ Relationship:
 
 Each customer can have multiple orders (one-to-many relationship).
 ---------------------------------------------------------------------
-4. order_items Table
+** order_items Table **
 
 The order_items table contains detailed line items for each order:
 
@@ -80,7 +80,7 @@ Each order item references one product.
 
 This creates a many-to-many relationship between orders and products (resolved using order_items).
 ---------------------------------------------------------------------
-5. Why Are Some shipped_date Values NULL?
+** Why Are Some shipped_date Values NULL? **
 
 Some shipped_date values are NULL because:
 
@@ -94,7 +94,7 @@ Some shipped_date values are NULL because:
 
 Therefore, shipped_date is only filled when an order has actually been shipped or delivered.
 ---------------------------------------------------------------------
-6. Overall Data Insight
+**  Overall Data Insight  **
 
 This dataset represents a typical e-commerce system:
 
@@ -109,11 +109,10 @@ This dataset represents a typical e-commerce system:
             -Not all orders are completed (some are cancelled or still processing)
 
 The structure correctly models a real-world online store database.
----------------------------------------------------------------------
 -------------------------------------------------------------------
-//-------Lab 02 – Query 2: Select Specific Column------//
+##-------Lab 02 – Query 2: Select Specific Column------
 -------------------------------------------------------------------
-1. Version 1 — Oldest to Newest
+** Version 1 — Oldest to Newest **
 
 SELECT name, city, signup_date
 FROM customers
@@ -123,7 +122,7 @@ ORDER BY signup_date;
 
        -Shows customers from earliest to latest signup. Useful for tracking growth.
 ---------------------------------------------------------------------
-2. Version 2 — Newest to Oldest
+** Version 2 — Newest to Oldest **
 
 SELECT name, city, signup_date
 FROM customers
@@ -133,3 +132,32 @@ ORDER BY signup_date DESC;
 
        -Quick way to identify recent signups.
 ---------------------------------------------------------------------
+## --------- Query 3 — Filter by Status ----------
+---------------------------------------------------------------------
+** Delivered Orders **
+
+SELECT order_id, customer_id, total_amount, order_date
+FROM orders
+WHERE status = 'delivered'
+ORDER BY order_date DESC;
+
+      -Lists all delivered orders, most recent first.
+---------------------------------------------------------------------
+** Pending Orders **
+
+SELECT COUNT(*) AS pending_count
+FROM orders
+WHERE status = 'pending';
+
+     -Counts orders not yet shipped or processed.
+---------------------------------------------------------------------
+** Cancelled Orders **
+
+SELECT COUNT(*) AS cancelled_count
+FROM orders
+WHERE status = 'cancelled';
+
+     -Counts orders that were cancelled.
+
+**Insight: Filtering by status helps understand order fulfillment, pending backlog, and cancellations.**
+--------------------------------------------------------------------
