@@ -110,3 +110,26 @@ This dataset represents a typical e-commerce system:
 
 The structure correctly models a real-world online store database.
 ---------------------------------------------------------------------
+-------------------------------------------------------------------
+//-------Lab 02 – Query 2: Select Specific Column------//
+-------------------------------------------------------------------
+1. Version 1 — Oldest to Newest
+
+SELECT name, city, signup_date
+FROM customers
+ORDER BY signup_date;
+
+       -Returns only name, city, and signup date.
+
+       -Shows customers from earliest to latest signup. Useful for tracking growth.
+---------------------------------------------------------------------
+2. Version 2 — Newest to Oldest
+
+SELECT name, city, signup_date
+FROM customers
+ORDER BY signup_date DESC;
+
+       -Reverses the order: newest customers first.
+
+       -Quick way to identify recent signups.
+---------------------------------------------------------------------
